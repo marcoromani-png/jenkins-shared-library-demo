@@ -27,7 +27,7 @@ def call(String startUrl) {
         echo "Episodi raccolti finora: ${allEpisodes.size()}"
     }
 
-    echo "Fine paginazione. Totale episodi raccolti: ${allEpisodes.size()}"
+    //echo "Fine paginazione. Totale episodi raccolti: ${allEpisodes.size()}"
 
     return allEpisodes
 }
