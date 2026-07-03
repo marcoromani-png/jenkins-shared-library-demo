@@ -8,10 +8,13 @@ def call(String apiUrl) {
         validResponseCodes: '200'
     )
 
+    // Stampa nei log lo status code ricevuto dalla chiamata HTTP
     echo "Status code ricevuto: ${response.status}"
 
+    // Converte il body della risposta JSON in un oggetto leggibile
     def objects = readJSON text: response.content
 
+    // Conta quanti elementi ci sono nell'array 
     def count = objects.size()
 
     echo "Numero oggetti presenti nell array: ${count}"
