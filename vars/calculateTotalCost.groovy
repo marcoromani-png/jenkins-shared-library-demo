@@ -12,9 +12,6 @@ def call(String apiUrl) {
 
     def objects = readJSON text: response.content
 
-    if (!(objects instanceof List)) {
-        error "Il body della response non è un array JSON"
-    }
 
     Double totalCost = 0.0
     int objectsWithPrice = 0
@@ -52,7 +49,7 @@ def call(String apiUrl) {
     }
 
     echo "Oggetti con prezzo: ${objectsWithPrice}"
-    echo "Oggetti senza prezzo: ${objectsWithoutPrice}"
+    //echo "Oggetti senza prezzo: ${objectsWithoutPrice}"
     echo "COSTO TOTALE: ${totalCost}"
 
     return totalCost
