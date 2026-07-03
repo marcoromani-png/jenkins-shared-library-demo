@@ -16,7 +16,7 @@ def call(String startUrl) {
             contentType: 'APPLICATION_JSON'
         )
 
-        def json = new JsonSlurperClassic().parseText(response.content)
+        def json = readJSON text: response.content
 
         if (json.results != null) {
             allEpisodes.addAll(json.results)
