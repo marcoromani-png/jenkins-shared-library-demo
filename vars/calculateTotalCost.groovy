@@ -21,26 +21,33 @@ def call(String apiUrl) {
     int objectsWithoutPrice = 0
 
     objects.each { object ->
-        def data = object.data
 
-        if (data != null) {
-            def price = data.price
+        def objectName = object['name']
+        def data = object['data']
 
-            if (price == null) {
-                price = data.Price
-            }
+        if (data == null || data.toString() == 'null') {
+            objectsWithoutPrice++
+            echo "Oggetto: ${objectName} - Campo data nullo"
+            return
+        }
 
-            if (price != null) {
-                totalCost = totalCost + new BigDecimal(price.toString())
-                objectsWithPrice++
-                echo "Oggetto: ${object.name} - Prezzo trovato: ${price}"
-            } else {
-                objectsWithoutPrice++
-                echo "Oggetto: ${object.name} - Nessun prezzo trovato"
-            }
+        def price = null
+
+        if (data.containsKey('price')) {
+            price = data['price']
+        } else if (data.containsKey('Price')) {
+            price = data['Price']
+        }
+
+        if (price != null) {
+            BigDecimal numericPrice = new BigDecimal(price.toString())
+            totalCost = totalCost + numericPrice
+            objectsWithPrice++
+
+            echo "Oggetto: ${objectName} - Prezzo trovato: ${numericPrice}"
         } else {
             objectsWithoutPrice++
-            echo "Oggetto: ${object.name} - Campo data nullo"
+            echo "Oggetto: ${objectName} - Nessun prezzo trovato"
         }
     }
 
