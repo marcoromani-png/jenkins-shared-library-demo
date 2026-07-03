@@ -6,7 +6,7 @@ def call(String startUrl) {
     //Inizio della prima URL
     def currentUrl = startUrl
     //Continuo a chiamare l’API finché esiste una pagina successiva.
-    while (currentUrl != null) {
+    while (currentUrl != null  && currentUrl.toString() != 'null') {
         echo "Chiamo API: ${currentUrl}"
 
         def response = httpRequest(
@@ -16,7 +16,7 @@ def call(String startUrl) {
             contentType: 'APPLICATION_JSON'
         )
 
-        def json = readJSON text: response.content
+        def json = readJSON text: response.content,  returnPojo: true
 
         if (json.results != null) {
             allEpisodes.addAll(json.results)
@@ -26,6 +26,8 @@ def call(String startUrl) {
 
         echo "Episodi raccolti finora: ${allEpisodes.size()}"
     }
+
+    echo "Fine paginazione. Totale episodi raccolti: ${allEpisodes.size()}"
 
     return allEpisodes
 }
