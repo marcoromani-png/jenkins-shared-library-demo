@@ -16,7 +16,7 @@ def call(String apiUrl) {
         error "Il body della response non è un array JSON"
     }
 
-    BigDecimal totalCost = 0
+    Double totalCost = 0.0
     int objectsWithPrice = 0
     int objectsWithoutPrice = 0
 
@@ -28,26 +28,26 @@ def call(String apiUrl) {
         if (data == null || data.toString() == 'null') {
             objectsWithoutPrice++
             echo "Oggetto: ${objectName} - Campo data nullo"
-            return
-        }
-
-        def price = null
-
-        if (data.containsKey('price')) {
-            price = data['price']
-        } else if (data.containsKey('Price')) {
-            price = data['Price']
-        }
-
-        if (price != null) {
-            BigDecimal numericPrice = new BigDecimal(price.toString())
-            totalCost = totalCost + numericPrice
-            objectsWithPrice++
-
-            echo "Oggetto: ${objectName} - Prezzo trovato: ${numericPrice}"
         } else {
-            objectsWithoutPrice++
-            echo "Oggetto: ${objectName} - Nessun prezzo trovato"
+            def price = null
+
+            if (data.containsKey('price')) {
+                price = data['price']
+            } else if (data.containsKey('Price')) {
+                price = data['Price']
+            }
+
+            if (price != null) {
+                Double numericPrice = price.toString().toDouble()
+
+                totalCost = totalCost + numericPrice
+                objectsWithPrice++
+
+                echo "Oggetto: ${objectName} - Prezzo trovato: ${numericPrice}"
+            } else {
+                objectsWithoutPrice++
+                echo "Oggetto: ${objectName} - Nessun prezzo trovato"
+            }
         }
     }
 
