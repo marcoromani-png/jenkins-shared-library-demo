@@ -1,4 +1,4 @@
-import groovy.json.JsonSlurperClassic
+//import groovy.json.JsonSlurperClassic
 
 def call(String startUrl) {
     //Lista vuota dove saranno messi tutti gli episodi di tutte le pagine.
