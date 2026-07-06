@@ -36,6 +36,7 @@ def call(List episodes) {
                             url: characterUrl,
                             validResponseCodes: '200',
                             contentType: 'APPLICATION_JSON'
+                            quiet: true
                         )
 
 
