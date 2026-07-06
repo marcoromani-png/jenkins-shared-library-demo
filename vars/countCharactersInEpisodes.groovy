@@ -1,4 +1,4 @@
-def call(List episodes, Map characterNames) {
+def call(List episodes) {
 
     // variabile dove salvo i character e il loro conteggio
     def characterCounter = [:]
@@ -29,40 +29,32 @@ def call(List episodes, Map characterNames) {
                     if (!characterCounter.containsKey(characterUrl)) {
 
 
+                        def response = httpRequest(
+                            httpMode: 'GET',
+                            url: characterUrl,
+                            validResponseCodes: '200',
+                            contentType: 'APPLICATION_JSON',
+                            quiet: true
+                        )
+
+
+
+                        def characterBody = readJSON text: response.content, returnPojo: true
+
                         def characterName = characterBody.name
-
-
-                        if (characterName == null) {
-                            characterName = characterUrl
-                        }
-
 
                         characterCounter[characterUrl] = [
                             name: characterName,
-                            count: 0,
-                            episodes: []
+                            count: 0
                         ]
+
+        
                 }
 
-
-                    // Lo segno come già contato per questo episodio
-                    charactersAlreadyCountedInThisEpisode.add(characterUrl)
-
-                    // Se il character non esiste ancora nella mappa, lo creo
-                    if (!characterCounter.containsKey(characterUrl)) {
-
-                        characterCounter[characterUrl] = [
-                            count: 0,
-                            episodes: []
-                        ]
-
-                    }
 
                     // Incremento il contatore del character
                     characterCounter[characterUrl].count = characterCounter[characterUrl].count + 1
 
-                    // Salvo il nome dell'episodio in cui compare
-                    characterCounter[characterUrl].episodes.add(episodeName)
 
                 }
             }

@@ -13,7 +13,8 @@ def call(String startUrl) {
             httpMode: 'GET',
             url: currentUrl,
             validResponseCodes: '200',
-            contentType: 'APPLICATION_JSON'
+            contentType: 'APPLICATION_JSON',
+            quiet: true
         )
 
 
