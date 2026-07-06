@@ -1,4 +1,4 @@
-def call(List episodes) {
+def call(List episodes, Map characterNames) {
 
     // variabile dove salvo i character e il loro conteggio
     def characterCounter = [:]
@@ -28,21 +28,14 @@ def call(List episodes) {
 
                     if (!characterCounter.containsKey(characterUrl)) {
 
-                    //echo "Recupero nome character da: ${characterUrl}"
-
-
-                        def response = httpRequest(
-                            httpMode: 'GET',
-                            url: characterUrl,
-                            validResponseCodes: '200',
-                            contentType: 'APPLICATION_JSON',
-                            quiet: true
-                        )
-
-
-                     def characterBody = readJSON text: response.content, returnPojo: true
 
                         def characterName = characterBody.name
+
+
+                        if (characterName == null) {
+                            characterName = characterUrl
+                        }
+
 
                         characterCounter[characterUrl] = [
                             name: characterName,
