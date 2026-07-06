@@ -2,7 +2,7 @@ import groovy.json.JsonSlurperClassic
 
 def call(String startUrl) {
     //Lista vuota dove saranno messi tutti gli episodi di tutte le pagine.
-    def allEpisodes = []
+    def episodes = []
     //Inizio della prima URL
     def currentUrl = startUrl
     //Continuo a chiamare l’API finché esiste una pagina successiva.
@@ -26,12 +26,12 @@ def call(String startUrl) {
         }
 
         //Prendo la prossima pagina. Se non esiste, diventa null e il ciclo finisce.
-        currentUrl = json.info?.next_page
+        currentUrl = body.info.next_page
 
-        echo "Episodi raccolti finora: ${allEpisodes.size()}"
+        echo "Episodi raccolti finora: ${episodes.size()}"
     }
 
-    //echo "Fine paginazione. Totale episodi raccolti: ${allEpisodes.size()}"
+    //echo "Fine paginazione. Totale episodi raccolti: ${episodes.size()}"
 
-    return allEpisodes
+    return episodes
 }
