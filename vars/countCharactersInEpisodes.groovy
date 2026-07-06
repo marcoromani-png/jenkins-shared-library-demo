@@ -12,15 +12,15 @@ def call(List episodes) {
         if (characters != null) {
 
             //Creo una lista temporanea per evitare di contare due volte lo stesso character nello stesso episodio.
-           // def charactersAlreadyCountedInThisEpisode = []
+           def charactersAlreadyCountedInThisEpisode = []
 
             for (character in characters) {
 
-                /*if (!charactersAlreadyCountedInThisEpisode.contains(character)) {
+                if (!charactersAlreadyCountedInThisEpisode.contains(character)) {
 
                     charactersAlreadyCountedInThisEpisode.add(character)
 
-                    if (!characterCounter.containsKey(character)) {
+                   /* if (!characterCounter.containsKey(character)) {
                         characterCounter[character] = [
                             count: 0,
                             episodes: []
