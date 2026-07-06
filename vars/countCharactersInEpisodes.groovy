@@ -22,15 +22,42 @@ def call(List episodes) {
             for (character in characters) {
 
                 // Se il character non è già stato contato in questo episodio
-                if (!charactersAlreadyCountedInThisEpisode.contains(character)) {
+                if (!charactersAlreadyCountedInThisEpisode.contains(characterUrl)) {
+
+                    charactersAlreadyCountedInThisEpisode.add(characterUrl)
+
+                    if (!characterCounter.containsKey(characterUrl)) {
+
+                    echo "Recupero nome character da: ${characterUrl}"
+
+
+                        def response = httpRequest(
+                            httpMode: 'GET',
+                            url: characterUrl,
+                            validResponseCodes: '200',
+                            contentType: 'APPLICATION_JSON'
+                        )
+
+
+                     def characterBody = readJSON text: response.content, returnPojo: true
+
+                        def characterName = characterBody.name
+
+                        characterCounter[characterUrl] = [
+                            name: characterName,
+                            count: 0,
+                            episodes: []
+                        ]
+                }
+
 
                     // Lo segno come già contato per questo episodio
-                    charactersAlreadyCountedInThisEpisode.add(character)
+                    charactersAlreadyCountedInThisEpisode.add(characterUrl)
 
                     // Se il character non esiste ancora nella mappa, lo creo
-                    if (!characterCounter.containsKey(character)) {
+                    if (!characterCounter.containsKey(characterUrl)) {
 
-                        characterCounter[character] = [
+                        characterCounter[characterUrl] = [
                             count: 0,
                             episodes: []
                         ]
@@ -38,10 +65,10 @@ def call(List episodes) {
                     }
 
                     // Incremento il contatore del character
-                    characterCounter[character].count = characterCounter[character].count + 1
+                    characterCounter[characterUrl].count = characterCounter[characterUrl].count + 1
 
                     // Salvo il nome dell'episodio in cui compare
-                    characterCounter[character].episodes.add(episodeName)
+                    characterCounter[characterUrl].episodes.add(episodeName)
 
                 }
             }
