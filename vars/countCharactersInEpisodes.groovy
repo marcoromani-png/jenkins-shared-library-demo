@@ -20,12 +20,12 @@ def call(List episodes) {
 
                     charactersAlreadyCountedInThisEpisode.add(character)
 
-                   /* if (!characterCounter.containsKey(character)) {
+                    if (!characterCounter.containsKey(character)) {
                         characterCounter[character] = [
                             count: 0,
                             episodes: []
                         ]
-                    }*/
+                    }
 
                     characterCounter[character].count = characterCounter[character].count + 1
                     characterCounter[character].episodes.add(episodeName)
