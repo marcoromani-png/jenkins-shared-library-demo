@@ -1,24 +1,39 @@
 def call(List episodes) {
     def characterCounter = [:]
 
-    episodes.each { episode ->
+// ciclo for su tutti gli epeisodi
+    for (episode in episodes) {
 
+        //recupero il nome degli episodi
         def episodeName = episode.name
-        def characters = episode.characters ?: []
+        //recupero il nome dei personaggi
+        def characters = episode.characters
 
-        characters.unique().each { characterUrl ->
+        if (characters != null) {
 
-            if (!characterCounter.containsKey(characterUrl)) {
-                characterCounter[characterUrl] = [
-                    count: 0,
-                    episodes: []
-                ]
+            //Creo una lista temporanea per evitare di contare due volte lo stesso character nello stesso episodio.
+           // def charactersAlreadyCountedInThisEpisode = []
+
+            for (character in characters) {
+
+                /*if (!charactersAlreadyCountedInThisEpisode.contains(character)) {
+
+                    charactersAlreadyCountedInThisEpisode.add(character)
+
+                    if (!characterCounter.containsKey(character)) {
+                        characterCounter[character] = [
+                            count: 0,
+                            episodes: []
+                        ]
+                    }*/
+
+                    characterCounter[character].count = characterCounter[character].count + 1
+                    characterCounter[character].episodes.add(episodeName)
+                }
             }
-
-            characterCounter[characterUrl].count = characterCounter[characterUrl].count + 1
-            characterCounter[characterUrl].episodes.add(episodeName)
         }
+        return characterCounter
     }
 
-    return characterCounter
-}
+    
+
