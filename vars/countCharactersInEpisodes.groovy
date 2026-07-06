@@ -6,9 +6,6 @@ def call(List episodes) {
     // Scorro tutti gli episodi
     for (episode in episodes) {
 
-        // Prendo il nome dell'episodio
-        def episodeName = episode.name
-
         // Prendo la lista dei characters dell'episodio
         def characters = episode.characters
 
@@ -41,10 +38,9 @@ def call(List episodes) {
 
                         def characterBody = readJSON text: response.content, returnPojo: true
 
-                        def characterName = characterBody.name
 
                         characterCounter[characterUrl] = [
-                            name: characterName,
+                            name: characterBody.name,
                             count: 0
                         ]
 
