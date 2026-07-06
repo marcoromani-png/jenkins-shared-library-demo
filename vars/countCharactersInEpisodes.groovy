@@ -1,6 +1,6 @@
 def call(List episodes) {
 
-    // Mappa finale dove salvo i character e il loro conteggio
+    // variabile dove salvo i character e il loro conteggio
     def characterCounter = [:]
 
     // Scorro tutti gli episodi
@@ -75,6 +75,5 @@ def call(List episodes) {
         }
     }
 
-    // Restituisco la mappa finale al Jenkinsfile
     return characterCounter
 }
