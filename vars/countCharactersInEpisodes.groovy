@@ -28,7 +28,7 @@ def call(List episodes) {
 
                     if (!characterCounter.containsKey(characterUrl)) {
 
-                    echo "Recupero nome character da: ${characterUrl}"
+                    //echo "Recupero nome character da: ${characterUrl}"
 
 
                         def response = httpRequest(
