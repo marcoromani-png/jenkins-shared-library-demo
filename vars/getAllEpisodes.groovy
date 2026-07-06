@@ -7,7 +7,7 @@ def call(String startUrl) {
     def currentUrl = startUrl
     //Continuo a chiamare l’API finché esiste una pagina successiva.
     while (currentUrl != null) {
-        echo "Chiamo API: ${currentUrl}"
+        //echo "Chiamo API: ${currentUrl}"
 
         def response = httpRequest(
             httpMode: 'GET',
