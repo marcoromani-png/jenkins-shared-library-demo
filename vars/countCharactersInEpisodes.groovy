@@ -35,7 +35,7 @@ def call(List episodes) {
                             httpMode: 'GET',
                             url: characterUrl,
                             validResponseCodes: '200',
-                            contentType: 'APPLICATION_JSON'
+                            contentType: 'APPLICATION_JSON',
                             quiet: true
                         )
 
