@@ -19,7 +19,7 @@ def call(List episodes) {
             def charactersAlreadyCountedInThisEpisode = []
 
             // Scorro tutti i characters dell'episodio
-            for (character in characters) {
+            for (characterUrl in characters) {
 
                 // Se il character non è già stato contato in questo episodio
                 if (!charactersAlreadyCountedInThisEpisode.contains(characterUrl)) {
